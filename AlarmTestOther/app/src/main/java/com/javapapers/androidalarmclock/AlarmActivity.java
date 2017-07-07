@@ -36,7 +36,7 @@ public class AlarmActivity extends Activity {
    public static AlarmActivity instance() {
         return inst;
     }
-
+    Calendar rightNow = Calendar.getInstance();
     @Override
     public void onStart() {
         super.onStart();
@@ -61,7 +61,7 @@ public class AlarmActivity extends Activity {
 
     public void onModeSwitch(View view) {
         Boolean switchState = modeswitch.isChecked();
-        Calendar rightNow = Calendar.getInstance();
+
         if (switchState) {
             mode = 1;
             questiontext.setText("How long do you want to sleep for?");
@@ -108,8 +108,8 @@ public class AlarmActivity extends Activity {
             if (mode == 1) {
 
 
-                alarmTimePicker.setCurrentHour((alarmTimePicker.getCurrentHour()) + (Integer.valueOf((tField1.getText().toString()))));
-                alarmTimePicker.setCurrentMinute((alarmTimePicker.getCurrentMinute() + (Integer.valueOf((tField2).getText().toString()))));
+                alarmTimePicker.setCurrentHour((rightNow.get(Calendar.HOUR_OF_DAY) + (Integer.valueOf((tField1.getText().toString())))));
+                alarmTimePicker.setCurrentMinute((rightNow.get(Calendar.MINUTE)+ (Integer.valueOf((tField2).getText().toString()))));
             }
             if (mode == 0){
                 alarmTimePicker.setCurrentHour(Integer.valueOf((tField1.getText().toString())));
