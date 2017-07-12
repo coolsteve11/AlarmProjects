@@ -1,9 +1,14 @@
 package com.javapapers.androidalarmclock;
+
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -13,11 +18,17 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
+
+import com.fitbit.authentication.AuthenticationHandler;
+import com.fitbit.authentication.AuthenticationManager;
+import com.fitbit.authentication.AuthenticationResult;
+import com.fitbit.authentication.Scope;
+
 import java.util.Calendar;
+import java.util.Set;
 
 
-
-public class AlarmActivity extends Activity implements GestureDetector.OnGestureListener {
+public class AlarmActivity extends Activity implements GestureDetector.OnGestureListener, AuthenticationHandler {
     AlarmManager alarmManager;
     private PendingIntent pendingIntent;
     private TimePicker alarmTimePicker;
@@ -46,12 +57,12 @@ public class AlarmActivity extends Activity implements GestureDetector.OnGesture
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
-        alarmTimePicker =  findViewById(R.id.alarmTimePicker);
-        alarmTextView =  findViewById(R.id.alarmText);
+        alarmTimePicker = (TimePicker)  findViewById(R.id.alarmTimePicker);
+        alarmTextView = (TextView) findViewById(R.id.alarmText);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        tField1 =  findViewById(R.id.editText);
-        tField2 = findViewById(R.id.editText2);
-        currentalarm =  findViewById(R.id.textView5);
+        tField1 =  (EditText) findViewById(R.id.editText);
+        tField2 = (EditText)  findViewById(R.id.editText2);
+        currentalarm = (TextView) findViewById(R.id.textView5);
         gDetector = new GestureDetector(this);
         alarmTimePicker.setIs24HourView(true);
 
@@ -268,6 +279,61 @@ public class AlarmActivity extends Activity implements GestureDetector.OnGesture
         return gDetector.onTouchEvent(me);
     }
 
+
+    public void onLoggedIn() {
+       // Intent intent = UserDataActivity.newIntent(this);
+  //      startActivity(intent);
+       }
+
+    public void onLoginClick(View view) {
+        AuthenticationManager.login(this);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        AuthenticationManager.onActivityResult(requestCode, resultCode, data, (AuthenticationHandler) this);
+    }
+
+
+    public void onAuthFinished(AuthenticationResult authenticationResult) {
+        if (authenticationResult.isSuccessful()) {
+            onLoggedIn();
+        } else {
+            displayAuthError(authenticationResult);
+        }
+
+}
+
+    private void displayAuthError(AuthenticationResult authenticationResult) {
+        String message = "";
+
+        switch (authenticationResult.getStatus()) {
+            case dismissed:
+                message = "Login dismissed or no scopes selected";
+                break;
+            case error:
+                message = authenticationResult.getErrorMessage();
+                break;
+            case missing_required_scopes:
+                Set<Scope> missingScopes = authenticationResult.getMissingScopes();
+                String missingScopesText = TextUtils.join(", ", missingScopes);
+                message = "Error logging in. Missing the following required scopes:" + missingScopesText;
+                break;
+        }
+
+        new AlertDialog.Builder(this)
+                .setTitle("Login")
+                .setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                })
+                .create()
+                .show();
+    }
 
 
 }
