@@ -7,4 +7,6 @@
     <string name="edit_message">Hour</string>
     <string name="edit_message_2">Minute</string>
     <string name="button_text">set timer</string>
+    <string name="title_activity_heart_stuff">HeartStuff</string>
+    <string name="title_activity_get_hr">getHr</string>
 </resources>

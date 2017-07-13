@@ -17,12 +17,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
-
-
 import com.fitbit.authentication.AuthenticationHandler;
 import com.fitbit.authentication.AuthenticationManager;
 import com.fitbit.authentication.AuthenticationResult;
 import com.fitbit.authentication.Scope;
+
 
 import java.util.Calendar;
 import java.util.Set;
@@ -39,8 +38,6 @@ public class AlarmActivity extends Activity implements GestureDetector.OnGesture
     private TextView currentalarm;
     private GestureDetector gDetector;
     private float a = 0;
-
-
     public static AlarmActivity instance() {
         return inst;
     }
@@ -281,8 +278,8 @@ public class AlarmActivity extends Activity implements GestureDetector.OnGesture
 
 
     public void onLoggedIn() {
-       // Intent intent = UserDataActivity.newIntent(this);
-  //      startActivity(intent);
+       Intent intent = getHr.newIntent(this);
+        startActivity(intent);
        }
 
     public void onLoginClick(View view) {

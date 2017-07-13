@@ -86,10 +86,9 @@
 
         android:onClick="onSetTime"
         android:text="Sync"
+        android:layout_marginTop="10dp"
         android:layout_alignTop="@+id/editText"
-        android:layout_alignRight="@+id/alarmTimePicker"
-        android:layout_alignEnd="@+id/alarmTimePicker"
-        android:layout_marginTop="10dp" />
+        android:layout_toEndOf="@+id/textView5" />
 
     <Button
         android:id="@+id/button3"
