@@ -25,7 +25,7 @@ public class HRService {
     private static final ResourceLoaderFactory<HRLogs> HR_LOG_LOADER_FACTORY = new ResourceLoaderFactory<>(HR_URL, HRLogs.class);
 
 
-    public static Loader<ResourceLoaderResult<HRLogs>> getHRLogLoader(Activity activityContext, Date startDate, int calendarDateType, int number) throws MissingScopesException, TokenExpiredException {
+    public static Loader<ResourceLoaderResult<HRLogs>> getHRLogLoader(Activity activityContext) throws MissingScopesException, TokenExpiredException {
 
 
         return HR_LOG_LOADER_FACTORY.newResourceLoader(

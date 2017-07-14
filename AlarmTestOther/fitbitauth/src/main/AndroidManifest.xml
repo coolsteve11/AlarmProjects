@@ -9,11 +9,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         >
-        <activity
-            android:name="com.fitbit.authentication.ui.LoginActivity"
-            android:theme="@style/Theme.Fitbit.Teal">
-        </activity>
 
+        <activity
+                   android:name="com.fitbit.authentication.ui.LoginActivity"
+                    android:theme="@style/Theme.Fitbit.Teal">
+        </activity>
     </application>
 
 </manifest>

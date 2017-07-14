@@ -278,9 +278,11 @@ public class AlarmActivity extends Activity implements GestureDetector.OnGesture
 
 
     public void onLoggedIn() {
-       Intent intent = getHr.newIntent(this);
-        startActivity(intent);
-       }
+        Intent intent = getHr.newIntent(this);
+            startActivity(intent);
+            AuthenticationManager.login(this);
+        }
+
 
     public void onLoginClick(View view) {
         AuthenticationManager.login(this);

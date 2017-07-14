@@ -1,8 +1,6 @@
 package com.fitbit.authentication;
-
 import com.fitbit.authentication.ui.LoginActivity;
 import com.fitbit.fitbitcommon.network.BasicHttpRequestBuilder;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
