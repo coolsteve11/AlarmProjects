@@ -28,7 +28,7 @@ String a = "";
                 .setClientCredentials(clientCredentials)
                 .setEncryptionKey(secureKey)
                 .addRequiredScopes(Scope.profile, Scope.settings)
-                .addOptionalScopes(activity, Scope.sleep, Scope.heartrate)
+                .addOptionalScopes(activity, Scope.sleep, Scope.heartrate, Scope.weight)
                 .build();
 
         AuthenticationManager.configure(this, config);
