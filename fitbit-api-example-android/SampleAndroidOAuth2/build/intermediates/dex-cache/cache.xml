@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="A:\Android\sdk\extras\m2repository\com\android\support\constraint\constraint-layout-solver\1.0.2\constraint-layout-solver-1.0.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
+        <dex dex="C:\Users\Stephen\AndroidStudio\AlarmProjects\fitbit-api-example-android\SampleAndroidOAuth2\app\build\intermediates\pre-dexed\debug\constraint-layout-solver-1.0.2_df8a00a1b6b08a0ed4e6b47f2110042ca7717b29.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Stephen\AndroidStudio\AlarmProjects\fitbit-api-example-android\SampleAndroidOAuth2\fitbitapi\build\intermediates\bundles\default\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="93cede740f952f3299a5de53298ab85cff243f71">
+        <dex dex="C:\Users\Stephen\AndroidStudio\AlarmProjects\fitbit-api-example-android\SampleAndroidOAuth2\app\build\intermediates\pre-dexed\debug\classes_d1df96627e8ccfb66166bd58461dd32a70f14284.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Stephen\.android\build-cache\8706b4b1f0af8a02ebd3ad15c7dd374fb3841dcc\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
+        <dex dex="C:\Users\Stephen\AndroidStudio\AlarmProjects\fitbit-api-example-android\SampleAndroidOAuth2\app\build\intermediates\pre-dexed\debug\classes_740742ffd16cbd4a3bbc5e271e7caa975779749f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Stephen\AndroidStudio\AlarmProjects\fitbit-api-example-android\SampleAndroidOAuth2\fitbitcommon\build\intermediates\bundles\default\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="84e8979d536168e86cd6c4633d889530553d27da">
+        <dex dex="C:\Users\Stephen\AndroidStudio\AlarmProjects\fitbit-api-example-android\SampleAndroidOAuth2\app\build\intermediates\pre-dexed\debug\classes_8d5869a0ff23e29cdf0c4128a3ed8412109724bf.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Stephen\AndroidStudio\AlarmProjects\fitbit-api-example-android\SampleAndroidOAuth2\fitbitauth\build\intermediates\bundles\default\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3988e2dc4b59f425edc8ab33e6938371c3d81185">
+        <dex dex="C:\Users\Stephen\AndroidStudio\AlarmProjects\fitbit-api-example-android\SampleAndroidOAuth2\app\build\intermediates\pre-dexed\debug\classes_b48bdabcd209c57ba66cbe6407f6a2c11a7694de.jar" />
+    </item>
+
+</items>
