@@ -15,6 +15,20 @@ public class HRLogs {
     @Expose
     private HeartRate heartrate = new HeartRate();
 
+
+ @SerializedName("activities-heart")
+ @Expose
+ private ArrayList<HeartRate1> hrlistthing = new ArrayList<HeartRate1>();
+
+
+public HeartRate getHeartrate(){return heartrate;}
+
+ public ArrayList<HeartRate1> getHeartrate1(){return hrlistthing;}
+
+ public Integer getResting(){return (hrlistthing.get(0)).getResting();}
+
+ public List<HRData> getHRData(){return heartrate.getDataset();}
+
 //    /**
 //     * @return The heartrate
 //     */

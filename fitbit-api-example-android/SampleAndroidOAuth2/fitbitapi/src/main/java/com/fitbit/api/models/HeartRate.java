@@ -29,6 +29,11 @@ public class HeartRate {
     @Expose
     private List<HRData> dataset;
 
+    public String getDatasetType(){return datasetType;}
+    public Integer getDatasetInterval(){return datasetInterval;}
+    public List<HRData> getDataset(){return dataset;}
+
+
 //    @SerializedName("value")
 //    @Expose
 //    private String value;

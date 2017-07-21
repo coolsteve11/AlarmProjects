@@ -17,6 +17,8 @@ public class HRData {
     @Expose
     private Integer value;
 
+    public String getTime(){return time;}
+    public Integer getValue(){return value;}
 
 
 }

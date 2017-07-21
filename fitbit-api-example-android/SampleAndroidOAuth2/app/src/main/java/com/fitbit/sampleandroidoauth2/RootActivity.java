@@ -52,6 +52,7 @@ public class RootActivity extends AppCompatActivity implements AuthenticationHan
         binding.setLoading(false);
     }
 
+
     public void onLoginClick(View view) {
         binding.setLoading(true);
         /**
@@ -125,6 +126,5 @@ public class RootActivity extends AppCompatActivity implements AuthenticationHan
                 .create()
                 .show();
     }
-
 
 }
