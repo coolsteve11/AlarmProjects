@@ -11,22 +11,22 @@ import java.util.List;
  */
 
 public class HRLogs {
-   @SerializedName("heartrate")
+   @SerializedName("activities-heart-intraday")
     @Expose
-    private List<HeartRate> heartrate = new ArrayList<HeartRate>();
+    private HeartRate heartrate = new HeartRate();
 
-    /**
-     * @return The rate
-     */
-    public List<HeartRate> getRate() {
-        return heartrate;
-    }
-
-    /**
-     * @param heartrate The rate
-     */
-    public void setRate(List<HeartRate> heartrate) {
-        this.heartrate = heartrate;
-    }
+//    /**
+//     * @return The heartrate
+//     */
+//    public List<HeartRate> getHeartRate() {
+//        return heartrate;
+//    }
+//
+//    /**
+//     * @param heartrate The rate
+//     */
+//    public void setHeartrate(List<HeartRate> heartrate) {
+//        this.heartrate = heartrate;
+//    }
 
 }

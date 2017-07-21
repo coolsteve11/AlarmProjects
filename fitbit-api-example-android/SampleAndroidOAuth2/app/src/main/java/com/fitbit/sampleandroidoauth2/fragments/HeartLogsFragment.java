@@ -5,6 +5,8 @@ package com.fitbit.sampleandroidoauth2.fragments;
 import com.fitbit.api.loaders.ResourceLoaderResult;
 import com.fitbit.api.models.HeartRate;
 import com.fitbit.api.models.HRLogs;
+import com.fitbit.api.models.Weight;
+
 import com.fitbit.api.services.HRService;
 import com.fitbit.sampleandroidoauth2.R;
 
@@ -61,25 +63,25 @@ Double x = 0.0;
     }
 
     public void bindHeartLogs(HRLogs heartLogs) {
-        List<HeartRate> rates = heartLogs.getRate();
-        DataPoint[] dataPoints = new DataPoint[rates.size()];
+        //List<HeartRate> rates = heartLogs.getHeartRate();
+      //  DataPoint[] dataPoints = new DataPoint[rates.size()];
 
-        for (int i = 0; i < rates.size(); i++) {
-            HeartRate rate = rates.get(i);
-           dataPoints[i] =  new DataPoint(x,(double) rate.getValue());
-            x += 1;
-        }
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
-       binding.graph.addSeries(series);
-
-       binding.graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity()));
-       binding.graph.getGridLabelRenderer().setNumHorizontalLabels(3);
-
-    //   binding.graph.getViewport().setMinX(dataPoints[0].getX());
-    // binding.graph.getViewport().setMaxX(dataPoints[dataPoints.length - 1].getX());
-        binding.graph.getViewport().setXAxisBoundsManual(true);
-
-        binding.graph.getGridLabelRenderer().setHumanRounding(false);
+//        for (int i = 0; i < rates.size(); i++) {
+//          //  HeartRate rate = rates.get(i);
+//          // dataPoints[i] =  new DataPoint(x,(double) rate.getValue());
+//           // x += 1;
+//        }
+      //  LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
+//       binding.graph.addSeries(series);
+//
+//       binding.graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity()));
+//       binding.graph.getGridLabelRenderer().setNumHorizontalLabels(3);
+//
+//    //   binding.graph.getViewport().setMinX(dataPoints[0].getX());
+//    // binding.graph.getViewport().setMaxX(dataPoints[dataPoints.length - 1].getX());
+//        binding.graph.getViewport().setXAxisBoundsManual(true);
+//
+//        binding.graph.getGridLabelRenderer().setHumanRounding(false);
 
     }
 }
