@@ -17,8 +17,8 @@ import java.util.Date;
  */
 
 public class HRService {
-
-    private final static String HR_URL = "https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1sec.json";
+//https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1sec.json
+        private final static String HR_URL = "https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1sec.json";
     private static final ResourceLoaderFactory<HRLogs> HR_LOG_LOADER_FACTORY = new ResourceLoaderFactory<>(HR_URL, HRLogs.class);
 
 

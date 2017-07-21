@@ -57,6 +57,7 @@ public class WeightLogFragment extends InfoFragment<WeightLogs> {
         super.onLoadFinished(loader, data);
         if (data.isSuccessful()) {
             bindWeightLogs(data.getResult());
+
         }
     }
 
