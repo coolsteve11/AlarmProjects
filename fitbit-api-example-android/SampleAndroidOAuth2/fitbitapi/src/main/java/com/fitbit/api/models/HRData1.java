@@ -15,6 +15,9 @@ public class HRData1 {
     @Expose
     private Integer restingHeartRate;
 
-public Integer getRestingHeartRate(){return restingHeartRate;}
-
-}
+public Integer getRestingHeartRate(){
+    if (restingHeartRate != null){
+    return restingHeartRate;
+    }
+    else{return 0;}
+}}
