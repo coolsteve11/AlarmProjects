@@ -52,6 +52,12 @@ public class RootActivity extends AppCompatActivity implements AuthenticationHan
         binding.setLoading(false);
     }
 
+    public void onAlarmClick(View view) {
+        Intent intent = AlarmActivity.newIntent(this);
+        startActivity(intent);
+        binding.setLoading(false);
+    }
+
 
     public void onLoginClick(View view) {
         binding.setLoading(true);

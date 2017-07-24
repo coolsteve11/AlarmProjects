@@ -1,34 +1,46 @@
 package com.fitbit.api.models;
 
-        import com.google.gson.annotations.Expose;
-        import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-        import java.util.ArrayList;
-        import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Stephen on 7/13/2017.
  */
 
 public class HRLogs {
-
-
-    @SerializedName("Heartrate")
+    @SerializedName("activities-heart-intraday")
     @Expose
-    private List<HeartRate> heartrate = new ArrayList<HeartRate>();
+    private HeartRate heartrate = new HeartRate();
 
-    /**
-     * @return The rate
-     */
-    public List<HeartRate> getRate() {
-        return heartrate;
-    }
 
-    /**
-     * @param heartrate The rate
-     */
-    public void setRate(List<HeartRate> heartrate) {
-        this.heartrate = heartrate;
-    }
+    @SerializedName("activities-heart")
+    @Expose
+    private ArrayList<HeartRate1> hrlistthing = new ArrayList<HeartRate1>();
+
+
+    public HeartRate getHeartrate(){return heartrate;}
+
+    public ArrayList<HeartRate1> getHeartrate1(){return hrlistthing;}
+
+    public Integer getResting(){return (hrlistthing.get(0)).getResting();}
+
+    public List<HRData> getHRData(){return heartrate.getDataset();}
+
+//    /**
+//     * @return The heartrate
+//     */
+//    public List<HeartRate> getHeartRate() {
+//        return heartrate;
+//    }
+//
+//    /**
+//     * @param heartrate The rate
+//     */
+//    public void setHeartrate(List<HeartRate> heartrate) {
+//        this.heartrate = heartrate;
+//    }
 
 }

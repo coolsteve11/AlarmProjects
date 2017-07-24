@@ -12,6 +12,7 @@ import com.fitbit.sampleandroidoauth2.R;
 
 import android.content.Loader;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,13 @@ import android.view.ViewGroup;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.opencsv.CSVWriter;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +38,7 @@ import java.util.List;
 
 public class HeartLogsFragment extends InfoFragment<HRLogs> {
 Double x = 0.0;
+  static  List<HRData> rates;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = super.onCreateView(inflater, container, savedInstanceState);
@@ -66,7 +74,7 @@ Double x = 0.0;
     }
 
     public void bindHeartLogs(HRLogs heartLogs) {
-        List<HRData> rates = heartLogs.getHRData();
+        rates = heartLogs.getHRData();
         if (rates.size() == 0){  Log.e("NOINFOR", "RIP");}
         else {
             int restingrate = heartLogs.getResting();
@@ -77,6 +85,7 @@ Double x = 0.0;
             int lowpoint = 100;
             int highpoint = 0;
             String sleeptime = "sleeptime";
+
             for (int i = 0; i < rates.size(); i++) {
                 int val = (rates.get(i)).getValue();
                 if ((val > highpoint) && (val) < 250) {
@@ -98,7 +107,7 @@ Double x = 0.0;
             Log.i("SLEEPYET", Integer.toString(sleepyet));
             Log.i("RESTINGRATE", Integer.toString(restingrate));
             Log.i("SLEEPTIME", sleeptime);
-
+            writeData(rates, lowpoint, highpoint,restingrate,sleeptime);
             LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
             binding.graph.addSeries(series);
 
@@ -114,5 +123,68 @@ Double x = 0.0;
     }
 
 
+    public static List<HRData> getRates(){return rates;}
 
+
+public void writeData(List<HRData> rates,int lowpoint,int highpoint,int restingrate,String sleeptime){
+
+    File csvFolder = new File(Environment.getExternalStorageDirectory(), "MyTempHR");
+    csvFolder.mkdirs();
+    String fileName = "HRData.csv";
+
+
+
+        try {
+            String content = "";
+            for(int i = 0; i < rates.size(); i++){
+                content += ((Integer.toString((rates.get(i)).getValue()))+","+ ((rates.get(i)).getTime()) + ",");
+            }
+            File file = new File(csvFolder + File.separator + fileName);
+            // if file doesnt exists, then create it
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(content);
+            bw.close();
+            Log.i("filepath", csvFolder + File.separator + fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+    String fileName1 = "HRData1.csv";
+
+
+
+    try {
+        String content = "";
+
+
+        for(int i = 0; i < rates.size(); i++){
+            content += (  Integer.toString(lowpoint) +  ",");
+            content += (  Integer.toString(highpoint) +  ",");
+            content += (  Integer.toString(restingrate) +  ",");
+            content += (sleeptime);
+        }
+        File file = new File(csvFolder + File.separator + fileName);
+        // if file doesnt exists, then create it
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+
+        FileWriter fw = new FileWriter(file.getAbsoluteFile());
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write(content);
+        bw.close();
+        Log.i("filepath", csvFolder + File.separator + fileName);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
+}
 }

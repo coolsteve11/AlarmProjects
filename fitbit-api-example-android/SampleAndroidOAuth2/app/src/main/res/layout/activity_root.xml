@@ -78,6 +78,14 @@
             </RelativeLayout>
 
 
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="onAlarmClick"
+                android:text="Alarm" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
