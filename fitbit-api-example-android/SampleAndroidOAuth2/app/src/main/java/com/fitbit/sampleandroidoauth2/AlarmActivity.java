@@ -14,18 +14,21 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
 import com.fitbit.api.models.HRData;
+import com.fitbit.api.models.HRLogs;
 import com.fitbit.api.services.HRService;
 import com.fitbit.authentication.AuthenticationHandler;
 import com.fitbit.authentication.AuthenticationManager;
 import com.fitbit.authentication.AuthenticationResult;
 import com.fitbit.authentication.Scope;
 import com.fitbit.sampleandroidoauth2.fragments.HeartLogsFragment;
+import com.fitbit.sampleandroidoauth2.fragments.InfoFragment;
 
 
 import java.util.Calendar;
@@ -42,6 +45,7 @@ public class AlarmActivity extends Activity implements GestureDetector.OnGesture
     private EditText tField1;
     private EditText tField2;
     private TextView currentalarm;
+    private CheckBox boxcheck;
     private GestureDetector gDetector;
     private float a = 0;
     public static AlarmActivity instance() {
@@ -72,6 +76,7 @@ public class AlarmActivity extends Activity implements GestureDetector.OnGesture
         currentalarm = (TextView) findViewById(R.id.textView5);
         gDetector = new GestureDetector(this);
         alarmTimePicker.setIs24HourView(true);
+        boxcheck = (CheckBox)  findViewById(R.id.checkBox);
 
 
 
@@ -155,6 +160,19 @@ public class AlarmActivity extends Activity implements GestureDetector.OnGesture
             Log.d("MyActivity", "Alarm Off");
         }
     }
+
+
+    public void onFitClick(View view) {
+        if (((CheckBox) view).isChecked()) {
+            alarmTimePicker.setVisibility(View.INVISIBLE);
+            //load hr data
+        }
+        else {
+            alarmTimePicker.setVisibility(View.VISIBLE);
+
+        }
+    }
+
 
     public void setAlarmText(String alarmText) {
         alarmTextView.setText(alarmText);
@@ -289,9 +307,6 @@ public class AlarmActivity extends Activity implements GestureDetector.OnGesture
 
     public void onLoggedIn() {
               //  List<HRData> rates =  HeartLogsFragment.getRates();
-
-
-
 //        Intent intent = getHr.newIntent(this);
 //        startActivity(intent);
 //        AuthenticationManager.login(this);

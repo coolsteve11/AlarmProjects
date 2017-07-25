@@ -11,6 +11,7 @@ import com.fitbit.api.services.HRService;
 import com.fitbit.sampleandroidoauth2.R;
 
 import android.content.Loader;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -107,7 +108,18 @@ Double x = 0.0;
             Log.i("SLEEPYET", Integer.toString(sleepyet));
             Log.i("RESTINGRATE", Integer.toString(restingrate));
             Log.i("SLEEPTIME", sleeptime);
-            writeData(rates, lowpoint, highpoint,restingrate,sleeptime);
+            final int lowpoint1 = lowpoint;
+            final int highpoint1 = highpoint;
+            final int restingrate1 = restingrate;
+            final String sleeptime1 = sleeptime;
+
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    writeData(rates, lowpoint1, highpoint1, restingrate1, sleeptime1);
+                }});
+
+
             LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
             binding.graph.addSeries(series);
 
@@ -128,63 +140,65 @@ Double x = 0.0;
 
 public void writeData(List<HRData> rates,int lowpoint,int highpoint,int restingrate,String sleeptime){
 
-    File csvFolder = new File(Environment.getExternalStorageDirectory(), "MyTempHR");
-    csvFolder.mkdirs();
-    String fileName = "HRData.csv";
+    final  File csvFolder = new File(Environment.getExternalStorageDirectory(), "MyTempHR");
+   csvFolder.mkdirs();
+    final String fileName = "HRData.csv";
+  final  String fileName1 = "HRData1.csv";
+    final List<HRData> rates1 = rates;
+    final int lowpoint1 = lowpoint;
+    final int highpoint1 = highpoint;
+    final int restingrate1 = restingrate;
+    final String sleeptime1 = sleeptime;
 
+               try {
+                String content = "";
+                for(int i = 0; i < rates1.size(); i++){
+                    content += ((Integer.toString((rates1.get(i)).getValue()))+","+ ((rates1.get(i)).getTime()) + ",");
+                }
+                File file = new File(csvFolder + File.separator + fileName);
+                // if file doesnt exists, then create it
+                if (!file.exists()) {
+                    file.createNewFile();
+                }
 
-
-        try {
-            String content = "";
-            for(int i = 0; i < rates.size(); i++){
-                content += ((Integer.toString((rates.get(i)).getValue()))+","+ ((rates.get(i)).getTime()) + ",");
+                FileWriter fw = new FileWriter(file.getAbsoluteFile());
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.write(content);
+                bw.close();
+                Log.i("filepath", csvFolder + File.separator + fileName);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            File file = new File(csvFolder + File.separator + fileName);
-            // if file doesnt exists, then create it
-            if (!file.exists()) {
-                file.createNewFile();
+                try {
+                String content = "";
+
+
+                for(int i = 0; i < rates1.size(); i++){
+                    content += (  Integer.toString(lowpoint1) +  ",");
+                    content += (  Integer.toString(highpoint1) +  ",");
+                    content += (  Integer.toString(restingrate1) +  ",");
+                    content += (sleeptime1);
+                }
+                File file = new File(csvFolder + File.separator + fileName);
+                // if file doesnt exists, then create it
+                if (!file.exists()) {
+                    file.createNewFile();
+                }
+
+                FileWriter fw = new FileWriter(file.getAbsoluteFile());
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.write(content);
+                bw.close();
+                Log.i("filepath", csvFolder + File.separator + fileName);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
-            FileWriter fw = new FileWriter(file.getAbsoluteFile());
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(content);
-            bw.close();
-            Log.i("filepath", csvFolder + File.separator + fileName);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
 
 
 
-    String fileName1 = "HRData1.csv";
 
 
 
-    try {
-        String content = "";
-
-
-        for(int i = 0; i < rates.size(); i++){
-            content += (  Integer.toString(lowpoint) +  ",");
-            content += (  Integer.toString(highpoint) +  ",");
-            content += (  Integer.toString(restingrate) +  ",");
-            content += (sleeptime);
-        }
-        File file = new File(csvFolder + File.separator + fileName);
-        // if file doesnt exists, then create it
-        if (!file.exists()) {
-            file.createNewFile();
-        }
-
-        FileWriter fw = new FileWriter(file.getAbsoluteFile());
-        BufferedWriter bw = new BufferedWriter(fw);
-        bw.write(content);
-        bw.close();
-        Log.i("filepath", csvFolder + File.separator + fileName);
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-
-}
 }
