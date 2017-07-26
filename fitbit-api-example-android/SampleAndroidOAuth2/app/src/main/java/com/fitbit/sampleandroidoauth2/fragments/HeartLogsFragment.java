@@ -74,12 +74,13 @@ Double x = 0.0;
         }
     }
 
+
     public void bindHeartLogs(HRLogs heartLogs) {
         rates = heartLogs.getHRData();
         if (rates.size() == 0){  Log.e("NOINFOR", "RIP");}
         else {
             int restingrate = heartLogs.getResting();
-            int sleeprate = restingrate - 6;
+            int sleeprate = restingrate - 5;
 
             DataPoint[] dataPoints = new DataPoint[rates.size()];
             int sleepyet = 0;

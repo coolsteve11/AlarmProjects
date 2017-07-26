@@ -3,10 +3,12 @@ package com.fitbit.sampleandroidoauth2;
 import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.LoaderManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.Loader;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
@@ -20,6 +22,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
+import com.fitbit.api.loaders.ResourceLoaderResult;
 import com.fitbit.api.models.HRData;
 import com.fitbit.api.models.HRLogs;
 import com.fitbit.api.services.HRService;
@@ -27,6 +30,7 @@ import com.fitbit.authentication.AuthenticationHandler;
 import com.fitbit.authentication.AuthenticationManager;
 import com.fitbit.authentication.AuthenticationResult;
 import com.fitbit.authentication.Scope;
+import com.fitbit.sampleandroidoauth2.fragments.HRF;
 import com.fitbit.sampleandroidoauth2.fragments.HeartLogsFragment;
 import com.fitbit.sampleandroidoauth2.fragments.InfoFragment;
 
@@ -36,7 +40,7 @@ import java.util.List;
 import java.util.Set;
 
 
-public class AlarmActivity extends Activity implements GestureDetector.OnGestureListener, AuthenticationHandler {
+public class AlarmActivity extends Activity implements GestureDetector.OnGestureListener, AuthenticationHandler, LoaderManager.LoaderCallbacks<ResourceLoaderResult<HRLogs>> {
     AlarmManager alarmManager;
     private PendingIntent pendingIntent;
     private TimePicker alarmTimePicker;
@@ -52,6 +56,13 @@ public class AlarmActivity extends Activity implements GestureDetector.OnGesture
         return inst;
     }
 
+    static List<HRData> rates;
+    int restingrate= 0;
+    int sleeprate= 0;
+    int lowpoint= 0;
+    int highpoint = 0;
+    String sleeptime = "";
+int id = 42;
     Calendar rightNow = Calendar.getInstance();
 
     @Override
@@ -66,6 +77,7 @@ public class AlarmActivity extends Activity implements GestureDetector.OnGesture
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getLoaderManager().initLoader(id, null, this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
         alarmTimePicker = (TimePicker)  findViewById(R.id.alarmTimePicker);
@@ -80,9 +92,35 @@ public class AlarmActivity extends Activity implements GestureDetector.OnGesture
 
 
 
+
     }
 
 
+    @Override
+    public Loader<ResourceLoaderResult<HRLogs>> onCreateLoader(int id, Bundle args) {
+
+        AuthenticationManager.login(this);
+        Log.i("SUCCESSSISH","at least the loader is created");
+        return HRService.getHRLogLoader(this);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<ResourceLoaderResult<HRLogs>> loader, ResourceLoaderResult<HRLogs> data) {
+        onLoadFinished(loader, data);
+        if (data.isSuccessful()) {
+            Log.i("SUCCESSSMORE","the loader finished !!!!");
+            bindHeartLogs(data.getResult());
+
+        }
+        else{
+            Log.i("FAILURE","FAILURE  oh");}
+    }
+
+    @Override
+    public void onLoaderReset(Loader<ResourceLoaderResult<HRLogs>> loader) {
+        // data is not available anymore, delete reference
+
+    }
 
 
     public void onSetTime(View view) {
@@ -165,13 +203,68 @@ public class AlarmActivity extends Activity implements GestureDetector.OnGesture
     public void onFitClick(View view) {
         if (((CheckBox) view).isChecked()) {
             alarmTimePicker.setVisibility(View.INVISIBLE);
-            //load hr data
+            //bindHeartLogs1();
         }
         else {
             alarmTimePicker.setVisibility(View.VISIBLE);
 
         }
     }
+
+
+    public void bindHeartLogs(HRLogs heartLogs) {
+
+        Log.i("SUCCESSS","SUCCESSS");
+        rates = heartLogs.getHRData();
+        if (rates.size() == 0){  Log.e("NOINFOR", "RIP");}
+        else {
+            int restingrate = heartLogs.getResting();
+            int sleeprate = restingrate - 5;
+
+                    int sleepyet = 0;
+            int lowpoint = 100;
+            int highpoint = 0;
+            String sleeptime = "sleeptime";
+
+            for (int i = 0; i < rates.size(); i++) {
+                int val = (rates.get(i)).getValue();
+                if ((val > highpoint) && (val) < 250) {
+                    highpoint = val;
+                }
+                if ((val < lowpoint) && (val) > 20) {
+                    lowpoint = val;
+                }
+                if ((sleepyet == 0) && val < sleeprate) {
+                    sleeptime = (rates.get(i)).getTime();
+                    sleepyet = 1;
+                }
+            }
+            Log.i("LOWPOINT", Integer.toString(lowpoint));
+       Log.i("HIGHPOINT", Integer.toString(highpoint));
+
+        Log.i("RESTINGRATE", Integer.toString(restingrate));
+        Log.i("SLEEPTIME", sleeptime);
+
+        }
+    }
+
+//    public void bindHeartLogs1(){
+//          this didn't work, probably because HRF needs to be loaded, not just created
+//        Log.i("SUCCESSS","SUCCESSS");
+//        HRF wew = new HRF();
+//        sleeptime = wew.getTime();
+//        rates = wew.getRates();
+//        lowpoint = wew.getlow();
+//        highpoint = wew.gethigh();
+//        sleeprate = wew.getsleeprate();
+//        restingrate = wew.getresting();
+//
+//        Log.i("LOWPOINT", Integer.toString(lowpoint));
+//        Log.i("HIGHPOINT", Integer.toString(highpoint));
+//
+//        Log.i("RESTINGRATE", Integer.toString(restingrate));
+//        Log.i("SLEEPTIME", sleeptime);
+//    }
 
 
     public void setAlarmText(String alarmText) {
@@ -313,9 +406,9 @@ public class AlarmActivity extends Activity implements GestureDetector.OnGesture
     }
 
 
-    public void onLoginClick(View view) {
-        AuthenticationManager.login(this);
-    }
+//    public void onLoginClick(View view) {
+//        AuthenticationManager.login(this);
+//    }
 
 
     @Override
