@@ -154,13 +154,12 @@ public void writeData(List<HRData> rates,int lowpoint,int highpoint,int restingr
                try {
                 String content = "";
                 for(int i = 0; i < rates1.size(); i++){
-                    content += ((Integer.toString((rates1.get(i)).getValue()))+","+ ((rates1.get(i)).getTime()) + ",");
+                    content += ((Integer.toString((rates1.get(i)).getValue()))+","+ ((rates1.get(i)).getTime()) + "\n");
                 }
                 File file = new File(csvFolder + File.separator + fileName);
                 // if file doesnt exists, then create it
-                if (!file.exists()) {
+
                     file.createNewFile();
-                }
 
                 FileWriter fw = new FileWriter(file.getAbsoluteFile());
                 BufferedWriter bw = new BufferedWriter(fw);
@@ -170,30 +169,30 @@ public void writeData(List<HRData> rates,int lowpoint,int highpoint,int restingr
             } catch (IOException e) {
                 e.printStackTrace();
             }
-                try {
-                String content = "";
-
-
-                for(int i = 0; i < rates1.size(); i++){
-                    content += (  Integer.toString(lowpoint1) +  ",");
-                    content += (  Integer.toString(highpoint1) +  ",");
-                    content += (  Integer.toString(restingrate1) +  ",");
-                    content += (sleeptime1);
-                }
-                File file = new File(csvFolder + File.separator + fileName);
-                // if file doesnt exists, then create it
-                if (!file.exists()) {
-                    file.createNewFile();
-                }
-
-                FileWriter fw = new FileWriter(file.getAbsoluteFile());
-                BufferedWriter bw = new BufferedWriter(fw);
-                bw.write(content);
-                bw.close();
-                Log.i("filepath", csvFolder + File.separator + fileName);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//                try {
+//                String content = "";
+//
+//
+//                for(int i = 0; i < rates1.size(); i++){
+//                    content += (  Integer.toString(lowpoint1) +  ",");
+//                    content += (  Integer.toString(highpoint1) +  ",");
+//                    content += (  Integer.toString(restingrate1) +  ",");
+//                    content += (sleeptime1);
+//                }
+//                File file = new File(csvFolder + File.separator + fileName);
+//                // if file doesnt exists, then create it
+//                if (!file.exists()) {
+//                    file.createNewFile();
+//                }
+//
+//                FileWriter fw = new FileWriter(file.getAbsoluteFile());
+//                BufferedWriter bw = new BufferedWriter(fw);
+//                bw.write(content);
+//                bw.close();
+//                Log.i("filepath", csvFolder + File.separator + fileName);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
         }
 
 
